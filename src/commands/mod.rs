@@ -45,7 +45,7 @@ pub async fn handle_message(ctx: &Context, msg: &Message) -> Result<(), Box<dyn 
     if msg.author.bot { return Ok(()); }
     if msg.kind != MessageType::Regular { return Ok(()); }
     
-    if let Some(cmd) = parse_command(msg) {
+    if let Some(cmd) = parse_command(&msg.content) {
         // Execute command
 
         let result = match cmd.name.as_str() {
@@ -78,13 +78,13 @@ pub async fn handle_message(ctx: &Context, msg: &Message) -> Result<(), Box<dyn 
 
 // Parse command from message text
 
-fn parse_command(msg: &Message) -> Option<Command> {
+fn parse_command(content: &str) -> Option<Command> {
     // Read command name
 
-    let mut data = if msg.content.starts_with(PREFIX) {
-        msg.content[PREFIX.len()..].chars()
+    let mut data = if let Some(stripped) = content.strip_prefix(PREFIX) {
+        stripped.chars()
     } else {
-        msg.content.chars()
+        content.chars()
     };
     let name: String = data
         .by_ref()
