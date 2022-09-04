@@ -38,6 +38,13 @@ impl CommandResult {
 // Handle message event
 
 pub async fn handle_message(ctx: &Context, msg: &Message) -> Result<(), Box<dyn Error>> {
+    // Check message details
+
+    if msg.guild_id.is_some() && !msg.content.starts_with(PREFIX) { return Ok(()); }
+    if msg.content.is_empty() { return Ok(()); }
+    if msg.author.bot { return Ok(()); }
+    if msg.kind != MessageType::Regular { return Ok(()); }
+    
     if let Some(cmd) = parse_command(msg) {
         // Execute command
 
@@ -72,13 +79,6 @@ pub async fn handle_message(ctx: &Context, msg: &Message) -> Result<(), Box<dyn 
 // Parse command from message text
 
 fn parse_command(msg: &Message) -> Option<Command> {
-    // Check message details
-
-    if msg.guild_id.is_some() && !msg.content.starts_with(PREFIX) { return None; }
-    if msg.content.is_empty() { return None; }
-    if msg.author.bot { return None; }
-    if msg.kind != MessageType::Regular { return None; }
-
     // Read command name
 
     let mut data = if msg.content.starts_with(PREFIX) {
