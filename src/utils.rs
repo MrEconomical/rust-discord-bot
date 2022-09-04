@@ -1,6 +1,8 @@
 // Imports
 
 use std::sync::Arc;
+use std::time::UNIX_EPOCH;
+use std::time::SystemTime;
 
 use serenity::cache::Cache;
 use serenity::http::{ CacheHttp, Http };
@@ -33,4 +35,15 @@ impl CacheHttp for CacheAndHttp {
     fn cache(&self) -> Option<&Arc<Cache>> {
         Some(&self.cache)
     }
+}
+
+// Get current system time
+
+pub fn get_time() -> Result<u64, String> {
+    Ok(
+        SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .map_err(|e| e.to_string())?
+            .as_millis() as u64
+    )
 }
