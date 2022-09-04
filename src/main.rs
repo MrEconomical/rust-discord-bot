@@ -22,12 +22,12 @@ async fn main() {
     // Create bot client
 
     println!("Creating bot client...");
-    let intents = GatewayIntents::GUILD_MESSAGES |
-        GatewayIntents::DIRECT_MESSAGES |
-        GatewayIntents::MESSAGE_CONTENT;
+    let intents = GatewayIntents::GUILD_MESSAGES
+        | GatewayIntents::DIRECT_MESSAGES
+        | GatewayIntents::MESSAGE_CONTENT;
     let mut client = Client::builder(token, intents)
-        .event_handler(Handler)
-        .await.expect("Error creating bot client");
+        .event_handler(Handler).await
+        .expect("Error creating bot client");
 
     if let Err(error) = client.start().await {
         eprintln!("Client terminated with error: {error}");
