@@ -13,7 +13,7 @@ use serenity::http::{ CacheHttp, Http };
 macro_rules! embed {
     ( $($attr:ident : $value:expr),* ) => {
         {
-            let mut embed = CreateEmbed::default();
+            let mut embed = serenity::builder::CreateEmbed::default();
             embed$( .$attr($value) )*;
             embed
         }
