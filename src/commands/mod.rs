@@ -24,6 +24,17 @@ pub struct CommandResult {
     embed: Option<CreateEmbed>
 }
 
+impl CommandResult {
+    // Create empty command result
+
+    fn empty() -> CommandResult {
+        CommandResult {
+            content: None,
+            embed: None
+        }
+    }
+}
+
 // Handle message event
 
 pub async fn handle_message(ctx: &Context, msg: &Message) -> Result<(), Box<dyn Error>> {
