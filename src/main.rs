@@ -49,7 +49,7 @@ impl EventHandler for Handler {
     // Message event
 
     async fn message(&self, ctx: Context, msg: Message) {
-        if let Err(error) = commands::handle_message(&ctx, &msg).await {
+        if let Err(error) = commands::handle_command(&ctx, &msg).await {
             eprintln!("Internal error: {error}");
         };
     }

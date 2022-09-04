@@ -37,7 +37,7 @@ impl CommandResult {
 
 // Handle message event
 
-pub async fn handle_message(ctx: &Context, msg: &Message) -> Result<(), Box<dyn Error>> {
+pub async fn handle_command(ctx: &Context, msg: &Message) -> Result<(), Box<dyn Error>> {
     // Check message details
 
     if msg.guild_id.is_some() && !msg.content.starts_with(PREFIX) { return Ok(()); }
