@@ -86,17 +86,17 @@ fn parse_command(content: &str) -> Option<Command> {
     } else {
         content.chars()
     };
-    let name: String = data
+    let name = data
         .by_ref()
         .take_while(|char| !char.is_whitespace())
         .collect();
 
     // Parse arguments
 
-    let data: Vec<(usize, char)> = data
+    let data = data
         .skip_while(|char| char.is_whitespace())
         .enumerate()
-        .collect();
+        .collect::<Vec<_>>();
     let mut args = vec![];
     let mut index = 0;
 
