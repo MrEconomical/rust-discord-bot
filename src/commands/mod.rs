@@ -40,7 +40,7 @@ impl CommandResult {
 pub async fn handle_command(ctx: &Context, msg: &Message) -> Result<(), Box<dyn Error>> {
     // Check message details
 
-    if msg.guild_id.is_some() && !msg.content.starts_with(PREFIX) { return Ok(()); }
+    if !msg.content.starts_with(PREFIX) && msg.guild_id.is_some() { return Ok(()); }
     if msg.content.is_empty() { return Ok(()); }
     if msg.author.bot { return Ok(()); }
     if msg.kind != MessageType::Regular { return Ok(()); }
